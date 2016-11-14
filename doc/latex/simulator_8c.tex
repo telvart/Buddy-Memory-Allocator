@@ -1,0 +1,327 @@
+\hypertarget{simulator_8c}{}\section{simulator.\+c File Reference}
+\label{simulator_8c}\index{simulator.\+c@{simulator.\+c}}
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$getopt.\+h$>$}\\*
+{\ttfamily \#include $<$limits.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdbool.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}buddy.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structvar__t}{var\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \hyperlink{simulator_8c_af9bff8ff1154a04a899276af806b8586}{status\+\_\+t} \hyperlink{simulator_8c_a64ad11e0cd0712cd5ab6b65bafb01eaf}{status\+\_\+t}
+\item 
+typedef enum \hyperlink{simulator_8c_a53b27e995146e408143989d826ea8e72}{severity\+\_\+t} \hyperlink{simulator_8c_ad5a621860cea3000d6fff61b24c953bc}{severity\+\_\+t}
+\item 
+typedef struct \hyperlink{structvar__t}{var\+\_\+t} \hyperlink{simulator_8c_ab704ad908455614a28b1de273bfa897d}{var\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{simulator_8c_af9bff8ff1154a04a899276af806b8586}{status\+\_\+t} \{ \hyperlink{simulator_8c_af9bff8ff1154a04a899276af806b8586ac7f69f7c9e5aea9b8f54cf02870e2bf8}{S\+U\+C\+C\+E\+SS} = 0, 
+\hyperlink{simulator_8c_af9bff8ff1154a04a899276af806b8586adc755e0f576234ef21032d56cab7515b}{O\+U\+T\+O\+F\+M\+E\+M\+O\+RY}, 
+\hyperlink{simulator_8c_af9bff8ff1154a04a899276af806b8586affd13aa6e8fc0c59b7a8935880e85ff7}{D\+O\+U\+B\+L\+E\+F\+R\+EE}, 
+\hyperlink{simulator_8c_af9bff8ff1154a04a899276af806b8586a7319e63f337beebb4630f30672560c28}{B\+A\+D\+I\+N\+P\+UT}
+ \}
+\item 
+enum \hyperlink{simulator_8c_a53b27e995146e408143989d826ea8e72}{severity\+\_\+t} \{ \hyperlink{simulator_8c_a53b27e995146e408143989d826ea8e72a2fd6f336d08340583bd620a7f5694c90}{E\+R\+R\+OR}, 
+\hyperlink{simulator_8c_a53b27e995146e408143989d826ea8e72a984de77c680eaff141ec910e25568a81}{W\+A\+R\+N\+I\+NG}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structvar__t}{var\+\_\+t} $\ast$ \hyperlink{simulator_8c_a8243708bf20349942fd78b86b23faa38}{get\+\_\+var} (char var)
+\item 
+static void \hyperlink{simulator_8c_aaa8f28ba555442b97037658d80c1a183}{print\+\_\+fault} (const char $\ast$cmd, const char $\ast$msg, \hyperlink{simulator_8c_a53b27e995146e408143989d826ea8e72}{severity\+\_\+t} sev)
+\item 
+static \hyperlink{simulator_8c_af9bff8ff1154a04a899276af806b8586}{status\+\_\+t} \hyperlink{simulator_8c_a1adfffecd0993f3a4bb6426897772e2c}{parse\+\_\+error} (const char $\ast$cmd)
+\item 
+static \hyperlink{simulator_8c_af9bff8ff1154a04a899276af806b8586}{status\+\_\+t} \hyperlink{simulator_8c_ab2e9ac714e741c607dbef0bfeff8b148}{parse\+\_\+alloc} (char $\ast$cmd)
+\item 
+static \hyperlink{simulator_8c_af9bff8ff1154a04a899276af806b8586}{status\+\_\+t} \hyperlink{simulator_8c_a80e5827b1591103e4ac9fb18d481d5ca}{parse\+\_\+free} (char $\ast$cmd)
+\item 
+static \hyperlink{simulator_8c_af9bff8ff1154a04a899276af806b8586}{status\+\_\+t} \hyperlink{simulator_8c_a71b9b835156c5f3ff75bb95cb7c427c8}{parse\+\_\+command} (char $\ast$cmd, int cmd\+\_\+len)
+\item 
+static \hyperlink{simulator_8c_af9bff8ff1154a04a899276af806b8586}{status\+\_\+t} \hyperlink{simulator_8c_a160f92b4b98f55d67f6d5a43d8eaca47}{parse\+\_\+file} ()
+\item 
+void \hyperlink{simulator_8c_a1af618f96cd775693d6a82cafc0e6057}{print\+\_\+usage} (char $\ast$prog\+\_\+name, F\+I\+LE $\ast$out)
+\item 
+int \hyperlink{simulator_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static F\+I\+LE $\ast$ \hyperlink{simulator_8c_aca392a8d3941cd0740aef3ad92545d67}{in} = N\+U\+LL
+\item 
+static \hyperlink{structvar__t}{var\+\_\+t} \hyperlink{simulator_8c_aac0a9bd81116672e0737054410aa7dc0}{var\+\_\+map} \mbox{[}256\mbox{]}
+\item 
+static int \hyperlink{simulator_8c_a696967e9c7408f4d9d8624ad6bd675f3}{linenum} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\index{simulator.\+c@{simulator.\+c}!severity\+\_\+t@{severity\+\_\+t}}
+\index{severity\+\_\+t@{severity\+\_\+t}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{severity\+\_\+t}{severity\_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef enum {\bf severity\+\_\+t}  {\bf severity\+\_\+t}}\hypertarget{simulator_8c_ad5a621860cea3000d6fff61b24c953bc}{}\label{simulator_8c_ad5a621860cea3000d6fff61b24c953bc}
+Severity of faults \index{simulator.\+c@{simulator.\+c}!status\+\_\+t@{status\+\_\+t}}
+\index{status\+\_\+t@{status\+\_\+t}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{status\+\_\+t}{status\_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef enum {\bf status\+\_\+t}  {\bf status\+\_\+t}}\hypertarget{simulator_8c_a64ad11e0cd0712cd5ab6b65bafb01eaf}{}\label{simulator_8c_a64ad11e0cd0712cd5ab6b65bafb01eaf}
+Various program statuses indicating success or failure of an operation \index{simulator.\+c@{simulator.\+c}!var\+\_\+t@{var\+\_\+t}}
+\index{var\+\_\+t@{var\+\_\+t}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{var\+\_\+t}{var\_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf var\+\_\+t}  {\bf var\+\_\+t}}\hypertarget{simulator_8c_ab704ad908455614a28b1de273bfa897d}{}\label{simulator_8c_ab704ad908455614a28b1de273bfa897d}
+Tracks a variable\textquotesingle{}s pointer in memory and whether it is allocated or not 
+
+\subsection{Enumeration Type Documentation}
+\index{simulator.\+c@{simulator.\+c}!severity\+\_\+t@{severity\+\_\+t}}
+\index{severity\+\_\+t@{severity\+\_\+t}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{severity\+\_\+t}{severity\_t}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf severity\+\_\+t}}\hypertarget{simulator_8c_a53b27e995146e408143989d826ea8e72}{}\label{simulator_8c_a53b27e995146e408143989d826ea8e72}
+Severity of faults \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{E\+R\+R\+OR@{E\+R\+R\+OR}!simulator.\+c@{simulator.\+c}}\index{simulator.\+c@{simulator.\+c}!E\+R\+R\+OR@{E\+R\+R\+OR}}\item[{\em 
+E\+R\+R\+OR\hypertarget{simulator_8c_a53b27e995146e408143989d826ea8e72a2fd6f336d08340583bd620a7f5694c90}{}\label{simulator_8c_a53b27e995146e408143989d826ea8e72a2fd6f336d08340583bd620a7f5694c90}
+}]\index{W\+A\+R\+N\+I\+NG@{W\+A\+R\+N\+I\+NG}!simulator.\+c@{simulator.\+c}}\index{simulator.\+c@{simulator.\+c}!W\+A\+R\+N\+I\+NG@{W\+A\+R\+N\+I\+NG}}\item[{\em 
+W\+A\+R\+N\+I\+NG\hypertarget{simulator_8c_a53b27e995146e408143989d826ea8e72a984de77c680eaff141ec910e25568a81}{}\label{simulator_8c_a53b27e995146e408143989d826ea8e72a984de77c680eaff141ec910e25568a81}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 25 of file simulator.\+c.
+
+\index{simulator.\+c@{simulator.\+c}!status\+\_\+t@{status\+\_\+t}}
+\index{status\+\_\+t@{status\+\_\+t}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{status\+\_\+t}{status\_t}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf status\+\_\+t}}\hypertarget{simulator_8c_af9bff8ff1154a04a899276af806b8586}{}\label{simulator_8c_af9bff8ff1154a04a899276af806b8586}
+Various program statuses indicating success or failure of an operation \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{S\+U\+C\+C\+E\+SS@{S\+U\+C\+C\+E\+SS}!simulator.\+c@{simulator.\+c}}\index{simulator.\+c@{simulator.\+c}!S\+U\+C\+C\+E\+SS@{S\+U\+C\+C\+E\+SS}}\item[{\em 
+S\+U\+C\+C\+E\+SS\hypertarget{simulator_8c_af9bff8ff1154a04a899276af806b8586ac7f69f7c9e5aea9b8f54cf02870e2bf8}{}\label{simulator_8c_af9bff8ff1154a04a899276af806b8586ac7f69f7c9e5aea9b8f54cf02870e2bf8}
+}]\index{O\+U\+T\+O\+F\+M\+E\+M\+O\+RY@{O\+U\+T\+O\+F\+M\+E\+M\+O\+RY}!simulator.\+c@{simulator.\+c}}\index{simulator.\+c@{simulator.\+c}!O\+U\+T\+O\+F\+M\+E\+M\+O\+RY@{O\+U\+T\+O\+F\+M\+E\+M\+O\+RY}}\item[{\em 
+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY\hypertarget{simulator_8c_af9bff8ff1154a04a899276af806b8586adc755e0f576234ef21032d56cab7515b}{}\label{simulator_8c_af9bff8ff1154a04a899276af806b8586adc755e0f576234ef21032d56cab7515b}
+}]\index{D\+O\+U\+B\+L\+E\+F\+R\+EE@{D\+O\+U\+B\+L\+E\+F\+R\+EE}!simulator.\+c@{simulator.\+c}}\index{simulator.\+c@{simulator.\+c}!D\+O\+U\+B\+L\+E\+F\+R\+EE@{D\+O\+U\+B\+L\+E\+F\+R\+EE}}\item[{\em 
+D\+O\+U\+B\+L\+E\+F\+R\+EE\hypertarget{simulator_8c_af9bff8ff1154a04a899276af806b8586affd13aa6e8fc0c59b7a8935880e85ff7}{}\label{simulator_8c_af9bff8ff1154a04a899276af806b8586affd13aa6e8fc0c59b7a8935880e85ff7}
+}]\index{B\+A\+D\+I\+N\+P\+UT@{B\+A\+D\+I\+N\+P\+UT}!simulator.\+c@{simulator.\+c}}\index{simulator.\+c@{simulator.\+c}!B\+A\+D\+I\+N\+P\+UT@{B\+A\+D\+I\+N\+P\+UT}}\item[{\em 
+B\+A\+D\+I\+N\+P\+UT\hypertarget{simulator_8c_af9bff8ff1154a04a899276af806b8586a7319e63f337beebb4630f30672560c28}{}\label{simulator_8c_af9bff8ff1154a04a899276af806b8586a7319e63f337beebb4630f30672560c28}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 15 of file simulator.\+c.
+
+
+
+\subsection{Function Documentation}
+\index{simulator.\+c@{simulator.\+c}!get\+\_\+var@{get\+\_\+var}}
+\index{get\+\_\+var@{get\+\_\+var}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+var(char var)}{get\_var(char var)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf var\+\_\+t}$\ast$ get\+\_\+var (
+\begin{DoxyParamCaption}
+\item[{char}]{var}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simulator_8c_a8243708bf20349942fd78b86b23faa38}{}\label{simulator_8c_a8243708bf20349942fd78b86b23faa38}
+Resolve a variable by name
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & Name of variable \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a pointer to location of the variable\textquotesingle{}s representation. Returns N\+U\+LL if the var is not an alphabetic character. 
+\end{DoxyReturn}
+
+
+Definition at line 52 of file simulator.\+c.
+
+\index{simulator.\+c@{simulator.\+c}!main@{main}}
+\index{main@{main}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{simulator_8c_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{simulator_8c_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 277 of file simulator.\+c.
+
+\index{simulator.\+c@{simulator.\+c}!parse\+\_\+alloc@{parse\+\_\+alloc}}
+\index{parse\+\_\+alloc@{parse\+\_\+alloc}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{parse\+\_\+alloc(char $\ast$cmd)}{parse\_alloc(char *cmd)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf status\+\_\+t} parse\+\_\+alloc (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simulator_8c_ab2e9ac714e741c607dbef0bfeff8b148}{}\label{simulator_8c_ab2e9ac714e741c607dbef0bfeff8b148}
+Parses an allocation instruction
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & String representing an allocation command in the program \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status of read and execute 
+\end{DoxyReturn}
+
+
+Definition at line 104 of file simulator.\+c.
+
+\index{simulator.\+c@{simulator.\+c}!parse\+\_\+command@{parse\+\_\+command}}
+\index{parse\+\_\+command@{parse\+\_\+command}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{parse\+\_\+command(char $\ast$cmd, int cmd\+\_\+len)}{parse\_command(char *cmd, int cmd\_len)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf status\+\_\+t} parse\+\_\+command (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{cmd, }
+\item[{int}]{cmd\+\_\+len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simulator_8c_a71b9b835156c5f3ff75bb95cb7c427c8}{}\label{simulator_8c_a71b9b835156c5f3ff75bb95cb7c427c8}
+Simplify the command and call one of the sub parser functions
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & Raw command string. This parameter is mutated. This parameter cannot be N\+U\+LL. \\
+\hline
+{\em cmd\+\_\+len} & Length in bytes of the command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Program status. 
+\end{DoxyReturn}
+
+
+Definition at line 199 of file simulator.\+c.
+
+\index{simulator.\+c@{simulator.\+c}!parse\+\_\+error@{parse\+\_\+error}}
+\index{parse\+\_\+error@{parse\+\_\+error}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{parse\+\_\+error(const char $\ast$cmd)}{parse\_error(const char *cmd)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf status\+\_\+t} parse\+\_\+error (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simulator_8c_a1adfffecd0993f3a4bb6426897772e2c}{}\label{simulator_8c_a1adfffecd0993f3a4bb6426897772e2c}
+Throw a parsing error
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & A string representing the faulting command \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns B\+A\+D\+I\+N\+P\+UT status 
+\end{DoxyReturn}
+
+
+Definition at line 92 of file simulator.\+c.
+
+\index{simulator.\+c@{simulator.\+c}!parse\+\_\+file@{parse\+\_\+file}}
+\index{parse\+\_\+file@{parse\+\_\+file}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{parse\+\_\+file()}{parse\_file()}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf status\+\_\+t} parse\+\_\+file (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simulator_8c_a160f92b4b98f55d67f6d5a43d8eaca47}{}\label{simulator_8c_a160f92b4b98f55d67f6d5a43d8eaca47}
+Feed each line of a file into the function parse\+\_\+command
+
+\begin{DoxyReturn}{Returns}
+Program status. 
+\end{DoxyReturn}
+
+
+Definition at line 246 of file simulator.\+c.
+
+\index{simulator.\+c@{simulator.\+c}!parse\+\_\+free@{parse\+\_\+free}}
+\index{parse\+\_\+free@{parse\+\_\+free}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{parse\+\_\+free(char $\ast$cmd)}{parse\_free(char *cmd)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf status\+\_\+t} parse\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simulator_8c_a80e5827b1591103e4ac9fb18d481d5ca}{}\label{simulator_8c_a80e5827b1591103e4ac9fb18d481d5ca}
+Parses a free instruction
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & String representing an allocation command in the program \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status of read and execute 
+\end{DoxyReturn}
+
+
+Definition at line 160 of file simulator.\+c.
+
+\index{simulator.\+c@{simulator.\+c}!print\+\_\+fault@{print\+\_\+fault}}
+\index{print\+\_\+fault@{print\+\_\+fault}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{print\+\_\+fault(const char $\ast$cmd, const char $\ast$msg, severity\+\_\+t sev)}{print\_fault(const char *cmd, const char *msg, severity\_t sev)}}]{\setlength{\rightskip}{0pt plus 5cm}static void print\+\_\+fault (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{cmd, }
+\item[{const char $\ast$}]{msg, }
+\item[{{\bf severity\+\_\+t}}]{sev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simulator_8c_aaa8f28ba555442b97037658d80c1a183}{}\label{simulator_8c_aaa8f28ba555442b97037658d80c1a183}
+Multi-\/purpose fault error message
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & A string representing a command \\
+\hline
+{\em msg} & A string that describes the nature of the fault \\
+\hline
+{\em sev} & Specify the severity of the fault \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 67 of file simulator.\+c.
+
+\index{simulator.\+c@{simulator.\+c}!print\+\_\+usage@{print\+\_\+usage}}
+\index{print\+\_\+usage@{print\+\_\+usage}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{print\+\_\+usage(char $\ast$prog\+\_\+name, F\+I\+L\+E $\ast$out)}{print\_usage(char *prog\_name, FILE *out)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+usage (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{prog\+\_\+name, }
+\item[{F\+I\+LE $\ast$}]{out}
+\end{DoxyParamCaption}
+)}\hypertarget{simulator_8c_a1af618f96cd775693d6a82cafc0e6057}{}\label{simulator_8c_a1af618f96cd775693d6a82cafc0e6057}
+Output program manual
+
+
+\begin{DoxyParams}{Parameters}
+{\em prog\+\_\+name} & Name of the program passed in as a command line argument. \\
+\hline
+{\em out} & File stream to write to. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 269 of file simulator.\+c.
+
+
+
+\subsection{Variable Documentation}
+\index{simulator.\+c@{simulator.\+c}!in@{in}}
+\index{in@{in}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{in}{in}}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+LE$\ast$ in = N\+U\+LL\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simulator_8c_aca392a8d3941cd0740aef3ad92545d67}{}\label{simulator_8c_aca392a8d3941cd0740aef3ad92545d67}
+
+
+Definition at line 40 of file simulator.\+c.
+
+\index{simulator.\+c@{simulator.\+c}!linenum@{linenum}}
+\index{linenum@{linenum}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{linenum}{linenum}}]{\setlength{\rightskip}{0pt plus 5cm}int linenum = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simulator_8c_a696967e9c7408f4d9d8624ad6bd675f3}{}\label{simulator_8c_a696967e9c7408f4d9d8624ad6bd675f3}
+
+
+Definition at line 42 of file simulator.\+c.
+
+\index{simulator.\+c@{simulator.\+c}!var\+\_\+map@{var\+\_\+map}}
+\index{var\+\_\+map@{var\+\_\+map}!simulator.\+c@{simulator.\+c}}
+\subsubsection[{\texorpdfstring{var\+\_\+map}{var\_map}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf var\+\_\+t} var\+\_\+map\mbox{[}256\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simulator_8c_aac0a9bd81116672e0737054410aa7dc0}{}\label{simulator_8c_aac0a9bd81116672e0737054410aa7dc0}
+
+
+Definition at line 41 of file simulator.\+c.
+
