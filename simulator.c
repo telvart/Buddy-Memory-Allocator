@@ -276,6 +276,10 @@ void print_usage(char* prog_name, FILE* out)
 
 int main(int argc, char** argv)
 {
+
+int blah = 1>>20;
+printf("%d",blah);
+//Jamies stuff below
 	int opt;
 
 	status_t prog_status;
