@@ -21,25 +21,25 @@
 /**************************************************************************
  * Public Definitions
  **************************************************************************/
-#define MIN_ORDER 12//4kb min size(page size)
-#define MAX_ORDER 20//1mg total size
+#define MIN_ORDER 12 //2^12
+#define MAX_ORDER 20 //2^20
 
 #define PAGE_SIZE (1<<MIN_ORDER) // 2^12 = 4k
 /* page index to address */
-#define PAGE_TO_ADDR(page_idx) (void *)(((page_idx)*PAGE_SIZE) + g_memory) // returns pointer to location in g_memory
+#define PAGE_TO_ADDR(page_idx) (void *)(((page_idx)*PAGE_SIZE) + g_memory) // returns pointer to location in g_mem
 
 /* address to page index */
 #define ADDR_TO_PAGE(addr) ((unsigned long)(((void *)(addr)) - (void *)g_memory) / PAGE_SIZE) //return what page address belongs to
 
 /* find buddy address */
-#define BUDDY_ADDR(addr, o) (void *)((((unsigned long)(addr) - (unsigned long)g_memory) ^ (1<<(o))) + (unsigned long)g_memory) //returns a pointer to the memory's buddy.(args = address,order)
-
+#define BUDDY_ADDR(addr, o) (void *)((((unsigned long)(addr) - (unsigned long)g_memory) ^ (1<<(o))) + (unsigned long)g_memory) //pointer to addr's buddy
 
 
 
 #if USE_DEBUG == 1
 #  define PDEBUG(fmt, ...) \
 	fprintf(stderr, "%s(), %s:%d: " fmt,			\
+
 		__func__, __FILE__, __LINE__, ##__VA_ARGS__)
 #  define IFDEBUG(x) x
 #else
@@ -79,16 +79,44 @@ page_t g_pages[(1<<MAX_ORDER)/PAGE_SIZE];
  * Local Functions
  **************************************************************************/
 
+ //determines what order is needed given a request
+ int determineOrder(int size)
+ {
+ 	int order;
+ 	for (order = MIN_ORDER; order <= MAX_ORDER; order++)
+ 	{
+ 			if ((1<<order) >= size)
+ 			{
+ 				return order;
+ 	 		}
+ 	}
+ 	return -1;
+ }
+
+
+ //recursive function to split memory into smaller blocks as needed
+ void splitMemory(page_t* page, int order, int orderNeeded)
+ {
+ 	if(order == orderNeeded)
+ 	{
+ 		return;
+ 	}
+ 	page_t* buddy = &g_pages[ADDR_TO_PAGE(BUDDY_ADDR(page->address,order-1))];
+ 	buddy->order = order-1;
+ 	list_add(&(buddy->list),&free_area[order-1]);//adds buddy to free area
+ 	splitMemory(page,order-1,orderNeeded);
+ }
+
+
 /**
  * Initialize the buddy system
  */
 void buddy_init()
 {
-	int i;
-	int n_pages = (1<<MAX_ORDER) / PAGE_SIZE;
+	int numPages = (1<<MAX_ORDER) / PAGE_SIZE;
 
 	//Initialize g_pages
-	for (i = 0; i < n_pages; i++)
+	for (int i = 0; i < numPages; i++)
 	{
 		g_pages[i].index = i;
 		g_pages[i].address = PAGE_TO_ADDR(i);
@@ -96,7 +124,7 @@ void buddy_init()
 	}
 
 	//initialize free_area
-	for (i = MIN_ORDER; i <= MAX_ORDER; i++)
+	for (int i = MIN_ORDER; i <= MAX_ORDER; i++)
  	{
 		INIT_LIST_HEAD(&free_area[i]);
 	}
@@ -105,34 +133,6 @@ void buddy_init()
 
 	// list the entire memory as free
 	list_add(&g_pages[0].list, &free_area[MAX_ORDER]);
-}
-
-//determines what order of mem will need to be allocated
-int determineOrder(int size)
-{
-	int order;
-	for (order = MIN_ORDER; order <= MAX_ORDER; order++)
-	{
-		if ((1<<order) >= size)
-		{
-			return order;
-	 	}
-}
-	return -1;
-}
-
-
-//recursive function to split memory into smaller blocks as needed
-void splitMemory(page_t* page, int order, int orderNeeded)
-{
-	if(order == orderNeeded)
-	{
-		return;
-	}
-	page_t* buddy = &g_pages[ADDR_TO_PAGE(BUDDY_ADDR(page->address,order-1))];
-	buddy->order = order-1;
-	list_add(&(buddy->list),&free_area[order-1]);//adds buddy to free area
-	splitMemory(page,order-1,orderNeeded);
 }
 
 /**
@@ -162,13 +162,11 @@ void *buddy_alloc(int size)
 	{
 		if(!list_empty(&free_area[i]))
 		{
-
 			page_t *page = list_entry(free_area[i].next,page_t,list);
-
 			list_del_init(&(page->list));
 			splitMemory(page, i, orderNeeded);
 			page->order = orderNeeded;
-			return ((void*)(page->address));
+			return page->address;
 		}
 	}
 	return NULL; //there was not enough memory available
@@ -189,27 +187,21 @@ void buddy_free(void *addr)
 	int i;
 	int currentOrder=page->order;
 
-	if((currentOrder<MIN_ORDER) || (currentOrder>MAX_ORDER))
-	{
-		printf("ERROR: invalid order: currentOrder=%d",currentOrder);
-		while(1);
-	}
-
 	for(i = currentOrder; i<MAX_ORDER; i++)
 	{
 		page_t* buddy = &g_pages[ADDR_TO_PAGE(BUDDY_ADDR(page->address,i))];
-		char freed = 0;
-		struct list_head *pos;
+		int wasFreed = 0;
+		struct list_head *position;
 
-		list_for_each(pos,&free_area[i])
+		list_for_each(position,&free_area[i])
 		{
-			if(list_entry(pos,page_t,list)==buddy)
+			if(list_entry(position,page_t,list)==buddy)
 			{
-				freed = 1;
+				wasFreed = 1;
 			}
 		}
 
-		if (!freed)
+		if (!wasFreed)
 		{
 			break;
 		}
