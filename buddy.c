@@ -55,7 +55,7 @@ typedef struct {
 	struct list_head list;
 
 	int index;
-	char *address;
+	char* address;
 	int order;
 
 } page_t;
@@ -79,11 +79,10 @@ page_t g_pages[(1<<MAX_ORDER)/PAGE_SIZE];
  * Local Functions
  **************************************************************************/
 
- //determines what order is needed given a request
+ //determines what order is needed given a size of memory
  int determineOrder(int size)
  {
- 	int order;
- 	for (order = MIN_ORDER; order <= MAX_ORDER; order++)
+ 	for(int order=MIN_ORDER; order<=MAX_ORDER; order++)
  	{
  			if ((1<<order) >= size)
  			{
@@ -101,6 +100,7 @@ page_t g_pages[(1<<MAX_ORDER)/PAGE_SIZE];
  	{
  		return;
  	}
+
  	page_t* buddy = &g_pages[ADDR_TO_PAGE(BUDDY_ADDR(page->address,order-1))];
  	buddy->order = order-1;
  	list_add(&(buddy->list),&free_area[order-1]);//adds buddy to free area
@@ -113,7 +113,7 @@ page_t g_pages[(1<<MAX_ORDER)/PAGE_SIZE];
  */
 void buddy_init()
 {
-	int numPages = (1<<MAX_ORDER) / PAGE_SIZE;
+	int numPages = (1<<MAX_ORDER)/PAGE_SIZE;
 
 	//Initialize g_pages
 	for (int i = 0; i < numPages; i++)
@@ -184,16 +184,16 @@ void *buddy_alloc(int size)
 void buddy_free(void *addr)
 {
 	page_t * page = &g_pages[ADDR_TO_PAGE(addr)];
-	int i;
+	int index;
 	int currentOrder=page->order;
 
-	for(i = currentOrder; i<MAX_ORDER; i++)
+	for(index = currentOrder; index<MAX_ORDER; index++)
 	{
-		page_t* buddy = &g_pages[ADDR_TO_PAGE(BUDDY_ADDR(page->address,i))];
+		page_t* buddy = &g_pages[ADDR_TO_PAGE(BUDDY_ADDR(page->address,index))];
 		int wasFreed = 0;
 		struct list_head *position;
 
-		list_for_each(position,&free_area[i])
+		list_for_each(position,&free_area[index])
 		{
 			if(list_entry(position,page_t,list)==buddy)
 			{
@@ -214,8 +214,8 @@ void buddy_free(void *addr)
 		}
 	}
 
-	page->order = i;
-	list_add(&page->list,&free_area[i]);
+	page->order = index;
+	list_add(&page->list,&free_area[index]);
 
 }
 
